@@ -32,9 +32,8 @@ class TutorialRepository implements ITutorialRepository {
       let condition: SearchCondition = {};
 
       if (searchParams?.published) condition.published = true;
-
-      if (searchParams?.title)
-        condition.title = { [Op.like]: `%${searchParams.title}%` };
+      
+      condition.title &&= { [Op.like]: `%${searchParams.title}%` };
 
       return await Tutorial.findAll({ where: condition });
     } catch (error) {
